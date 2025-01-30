@@ -27,7 +27,7 @@ const Box = styled.div`
 function CheckinBooking() {
   const [confirmPaid, setConfirmPaid] = useState(false);
   const [addBreakfast, setAddBreakfast] = useState(false);
-  const { booking, isLoading } = useBooking();
+  const { booking, isLoading, error } = useBooking();
   const { settings, isLoading: isLoadingSetting } = useSettings();
 
   useEffect(() => setConfirmPaid(booking?.isPaid ?? false), [booking]);
@@ -36,6 +36,13 @@ function CheckinBooking() {
   const { checkin, isCheckingIn } = useCheckin();
 
   if (isLoading || isLoadingSetting) return <Spinner />;
+
+  if (error)
+    return (
+      <Row type='horizontal'>
+        <Heading as='h1'>booking not found 😖</Heading>
+      </Row>
+    );
 
   const {
     id: bookingId,

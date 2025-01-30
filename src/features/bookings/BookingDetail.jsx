@@ -23,7 +23,7 @@ const HeadingGroup = styled.div`
 `;
 
 function BookingDetail() {
-  const { booking, isLoading } = useBooking();
+  const { booking, isLoading, error } = useBooking();
   const { checkout, isCheckOut } = useCheckout();
   const { deleteBooking, isDeletingBooking } = useDeleteBooking();
 
@@ -37,6 +37,13 @@ function BookingDetail() {
   };
 
   if (isLoading | isDeletingBooking) return <Spinner />;
+
+  if (error)
+    return (
+      <Row type='horizontal'>
+        <Heading as='h1'>booking not found 😖</Heading>
+      </Row>
+    );
 
   const { status, id } = booking;
 
