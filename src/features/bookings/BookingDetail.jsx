@@ -15,6 +15,7 @@ import ButtonText from "../../ui/ButtonText";
 import Spinner from "../../ui/Spinner";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import Empty from "../../ui/Empty";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -23,7 +24,7 @@ const HeadingGroup = styled.div`
 `;
 
 function BookingDetail() {
-  const { booking, isLoading, error } = useBooking();
+  const { booking, isLoading } = useBooking();
   const { checkout, isCheckOut } = useCheckout();
   const { deleteBooking, isDeletingBooking } = useDeleteBooking();
 
@@ -38,12 +39,7 @@ function BookingDetail() {
 
   if (isLoading | isDeletingBooking) return <Spinner />;
 
-  if (error)
-    return (
-      <Row type='horizontal'>
-        <Heading as='h1'>booking not found 😖</Heading>
-      </Row>
-    );
+  if (!booking) return <Empty resource='booking' />;
 
   const { status, id } = booking;
 
