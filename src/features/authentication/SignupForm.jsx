@@ -13,8 +13,8 @@ function SignupForm() {
   const { errors } = formState;
 
   function onSubmit({ fullName, email, password }) {
-    if (isLoading) return;
-    signup({ fullName, email, password }, { onSuccess: () => reset() });
+    console.log(fullName);
+    signup({ fullName, email, password }, { onSettled: () => reset() });
   }
 
   return (
@@ -24,7 +24,7 @@ function SignupForm() {
           type='text'
           id='fullName'
           disabled={isLoading}
-          {...register("fullname", { required: "This field is required" })}
+          {...register("fullName", { required: "This field is required" })}
         />
       </FormRow>
 
