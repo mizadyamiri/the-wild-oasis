@@ -1,7 +1,9 @@
-import { Outlet } from 'react-router-dom';
-import Header from './Header';
-import Sidebar from './Sidebar';
-import styled from 'styled-components';
+import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
+import styled from "styled-components";
+import Spinner from "./Spinner";
 
 const StyledAppLayout = styled.div`
   display: grid;
@@ -32,7 +34,9 @@ function AppLayout() {
 
       <Main>
         <Container>
-          <Outlet />
+          <Suspense fallback={<Spinner />}>
+            <Outlet />
+          </Suspense>
         </Container>
       </Main>
     </StyledAppLayout>
