@@ -25,9 +25,11 @@ function UserAvatar() {
   const { user } = useUser();
   const { fullName, avatar } = user.user_metadata;
 
+  const defaultAvatar = import.meta.env.BASE_URL + "default-user.jpg";
+
   return (
     <StyledUserAvatar>
-      <Avatar src={avatar || "default-user.jpg"} alt={`Avatar of ${fullName}`} />
+      <Avatar src={avatar || defaultAvatar} alt={`Avatar of ${fullName}`} />
       <span>{fullName}</span>
     </StyledUserAvatar>
   );

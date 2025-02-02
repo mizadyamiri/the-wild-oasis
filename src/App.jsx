@@ -8,7 +8,6 @@ import { Toaster } from "react-hot-toast";
 import GlobalStyles from "./styles/GlobalStyles";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Spinner from "./ui/Spinner";
-// import AppLayout from "./ui/AppLayout";
 
 const AppLayout = lazy(() => import("./ui/AppLayout"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -33,7 +32,7 @@ function App() {
         <ReactQueryDevtools initialIsOpen={false} />
 
         <GlobalStyles />
-        <BrowserRouter basename='/the-wild-oasis'>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
           <Routes>
             <Route
               element={
