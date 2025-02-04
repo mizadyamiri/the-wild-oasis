@@ -8,7 +8,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ErrorBoundary
       fallbackRender={ErrorFallback}
-      onReset={() => window.location.replace("/")}
+      onReset={() => window.location.replace(import.meta.env.BASE_URL)}
     >
       <App />
     </ErrorBoundary>
