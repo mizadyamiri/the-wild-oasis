@@ -1,0 +1,1 @@
+import{i as m}from"./helpers-166c3b16.js";import{i as u}from"./isSameDay-4bcdd5eb.js";function a(c){return m(c,Date.now())}function i(c,r){return u(m((r==null?void 0:r.in)||c,c),a((r==null?void 0:r.in)||c))}export{i};
