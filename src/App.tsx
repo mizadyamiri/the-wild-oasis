@@ -32,7 +32,7 @@ function App() {
         <ReactQueryDevtools initialIsOpen={false} />
 
         <GlobalStyles />
-        <BrowserRouter basename={import.meta.env.BASE_URL}>
+        <BrowserRouter basename={"/the-wild-oasis/"}>
           <Routes>
             <Route
               element={
