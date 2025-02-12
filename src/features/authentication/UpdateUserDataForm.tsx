@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useUser } from "./useUser";
 
 import Button from "../../ui/Button";
@@ -9,19 +9,19 @@ import Input from "../../ui/Input";
 import { useUpdateUser } from "./useUpdateUser";
 
 function UpdateUserDataForm() {
-  const {
-    user: {
-      email,
-      user_metadata: { fullName: currentFullName },
-    },
-  } = useUser();
-
+  const { user } = useUser();
+  const [fullName, setFullName] = useState<string>(user?.user_metadata.fullName);
+  const [avatar, setAvatar] = useState<File | null>(null);
   const { updateUser, isUpdating } = useUpdateUser();
 
-  const [fullName, setFullName] = useState(currentFullName);
-  const [avatar, setAvatar] = useState(null);
+  if (!user) return;
 
-  function handleSubmit(e) {
+  const {
+    email,
+    user_metadata: { fullName: currentFullName },
+  } = user;
+
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!fullName) return;
 
@@ -30,7 +30,7 @@ function UpdateUserDataForm() {
       {
         onSuccess: () => {
           setAvatar(null);
-          e.target.reset();
+          // e.target.reset();
         },
       }
     );
@@ -61,7 +61,10 @@ function UpdateUserDataForm() {
         <FileInput
           id='avatar'
           accept='image/*'
-          onChange={e => setAvatar(e.target.files[0])}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            if (!e.target.files) return;
+            setAvatar(e.target.files[0]);
+          }}
           disabled={isUpdating}
         />
       </FormRow>

@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
@@ -7,15 +7,26 @@ import { useSignup } from "./useSignup";
 
 // Email regex: /\S+@\S+\.\S+/
 
+type FormValues = {
+  fullName: string;
+  password: string;
+  email: string;
+  passwordConfirm: string;
+};
+
 function SignupForm() {
   const { signup, isLoading } = useSignup();
-  const { register, formState, getValues, handleSubmit, reset } = useForm();
+  const { register, formState, getValues, handleSubmit, reset } = useForm<FormValues>();
   const { errors } = formState;
 
-  function onSubmit({ fullName, email, password }) {
-    console.log(fullName);
+  const onSubmit: SubmitHandler<FormValues> = ({ fullName, email, password }) => {
     signup({ fullName, email, password }, { onSettled: () => reset() });
-  }
+  };
+
+  // function onSubmit({ fullName, email, password }) {
+  //   console.log(fullName);
+  //   signup({ fullName, email, password }, { onSettled: () => reset() });
+  // }
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -67,7 +78,12 @@ function SignupForm() {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button disabled={isLoading} variation='secondary' type='reset' onClick={reset}>
+        <Button
+          disabled={isLoading}
+          variation='secondary'
+          type='reset'
+          onClick={() => reset()}
+        >
           Cancel
         </Button>
         <Button disabled={isLoading}>Create new user</Button>

@@ -12,8 +12,8 @@ export function useUpdateUser() {
       queryClient.setQueriesData(["user"], user);
       // queryClient.invalidateQueries({ queryKey: ["user"] });
     },
-    onError: err => {
-      toast.error(err.massage);
+    onError: (err: Error) => {
+      toast.error(err.message);
     },
   });
 

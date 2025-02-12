@@ -23,9 +23,11 @@ const Avatar = styled.img`
 
 function UserAvatar() {
   const { user } = useUser();
-  const { fullName, avatar } = user.user_metadata;
 
-  const defaultAvatar = import.meta.env.BASE_URL + "default-user.jpg";
+  if (!user) return;
+
+  const { fullName, avatar } = user.user_metadata;
+  const defaultAvatar = "/the-wild-oasis/" + "default-user.jpg";
 
   return (
     <StyledUserAvatar>
